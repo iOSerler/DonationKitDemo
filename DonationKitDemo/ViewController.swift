@@ -6,14 +6,42 @@
 //
 
 import UIKit
+import DonationKit
 
 class ViewController: UIViewController {
 
+    lazy var purchaseButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.frame = CGRect(x: view.bounds.width/2 - 125, y: view.bounds.height/2 - 25, width: 250, height: 50)
+        button.setTitle("Donate", for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 25)
+        button.setTitleColor(.systemBackground, for: .normal)
+        button.backgroundColor = .systemBlue
+        button.layer.cornerRadius = 8
+        button.addTarget(self, action: #selector(showDonationScreen), for: .touchUpInside)
+        return button
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        view.backgroundColor = .systemBackground
+        view.addSubview(purchaseButton)
     }
 
+    @objc func showDonationScreen() {
+        
+        let configuration = PurchaseConfiguration(
+            id: "standard",
+            purchaseProductIdentifiers:
+                ["com.demo.price01",
+                 "com.demo.price05",
+                 "com.demo.price10"
+                ]
+        )
+        
+        let controller = PurchaseController(purchaseConfig: configuration)
+        self.navigationController?.pushViewController(controller, animated: true)
+    }
 
 }
 
