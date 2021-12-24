@@ -1,0 +1,3 @@
+[submodule "DonationKit"]
+	path = DonationKit
+	url = git@github.com:iOSerler/DonationKit.git
