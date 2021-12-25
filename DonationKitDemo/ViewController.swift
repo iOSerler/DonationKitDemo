@@ -10,6 +10,33 @@ import DonationKit
 
 class ViewController: UIViewController {
 
+    struct Analytics: GenericAnalytics {
+        func logEvent(_ eventName: String, properties: [String:Any]?) {
+            
+            print("\n<_____event______>")
+            print("eventName: ", eventName)
+            
+            guard let properties = properties else {
+                print("<______end_______>")
+                return
+            }
+            
+            print("\nProperties")
+            
+            for key in properties.keys {
+                print("\(key): \(properties[key]!)")
+            }
+            
+            print("<______end_______>\n")
+        }
+        
+        func setUserProperty(_ property: String, value: Any) {
+            print("\n<_____user_prop______>")
+            print("\(property): \(value)")
+            print("<______end_______>\n")
+        }
+    }
+    
     lazy var purchaseButton: UIButton = {
         let button = UIButton(type: .system)
         button.frame = CGRect(x: view.bounds.width/2 - 125, y: view.bounds.height/2 - 22, width: 250, height: 44)
@@ -43,7 +70,7 @@ class ViewController: UIViewController {
                 ]
         )
         
-        let controller = PurchaseController(purchaseConfig: configuration)
+        let controller = PurchaseController(purchaseConfig: configuration, analytics: Analytics())
         self.navigationController?.pushViewController(controller, animated: true)
     }
 
