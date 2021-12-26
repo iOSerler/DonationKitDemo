@@ -10,7 +10,7 @@ import DonationKit
 
 class ViewController: UIViewController {
 
-    struct Analytics: GenericAnalytics {
+    struct Analytics: AbstractAnalytics {
         func logEvent(_ eventName: String, properties: [String:Any]?) {
             
             print("\n<_____event______>")
@@ -61,7 +61,6 @@ class ViewController: UIViewController {
     @objc func showDonationScreen() {
         
         let configuration = PurchaseConfiguration(
-            id: "standard",
             purchaseProductIdentifiers:
                 [
                     "com.demo.price01",
